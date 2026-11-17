@@ -1,0 +1,11 @@
+config/config.sas
+data/generated/*
+!data/generated/.gitkeep
+data/source/*
+!data/source/.gitkeep
+results/*.csv
+!results/results-template.csv
+*.log
+*.lst
+.sasstudio
+.DS_Store
