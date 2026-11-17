@@ -1,9 +1,9 @@
 /* Copy to config/config.sas and edit for your environment. */
-%let PROJECT_ROOT=/absolute/path/aib-cas-lookup-performance;
+%let PROJECT_ROOT=/home/sas/aib_cas_lookup_performance;
 
 /* CAS settings */
 %let CAS_SESSION=mysession;
-%let CASLIB=casuser;
+%let CASLIB=DM;
 %let CAS_TIMEOUT=1800;
 
 /* SYNTHETIC or EXTERNAL */

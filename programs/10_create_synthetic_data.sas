@@ -5,30 +5,7 @@
 %end;
 %else %do;
 
-data lookup.countrycodes;
-  length Country $2 Country_Name $40;
-  infile datalines dlm='|' truncover;
-  input Country $ Country_Name :$40.;
-  datalines;
-AD|Andorra
-AE|United Arab Emirates
-AF|Afghanistan
-AU|Australia
-BE|Belgium
-BR|Brazil
-CA|Canada
-CH|Switzerland
-DE|Germany
-ES|Spain
-FR|France
-GB|United Kingdom
-IN|India
-JP|Japan
-NL|Netherlands
-SE|Sweden
-US|United States
-;
-run;
+%include "&PROJECT_ROOT/programs/11_create_country.sas";
 
 data lookup.products;
   length Item $48 MadeIn $2 Manufacturer $40;
