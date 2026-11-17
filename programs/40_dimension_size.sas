@@ -4,9 +4,9 @@
     %drop_cas(x1_country)
     %bench_start
     proc fedsql sessref=&CAS_SESSION %plan_opts(&rep);
-      create table mycas.x1_country {options replace=true} as
+      create table &caslib..x1_country {options replace=true} as
       select o.OrderID,o.OrderDate,o.CustomerID,o.Country,o.ProductID,o.Quantity,c.Country_Name
-      from mycas.orders_raw o left join mycas.country_thin c on o.Country=c.Country;
+      from &caslib..orders_raw o left join &caslib..country_thin c on o.Country=c.Country;
     quit;
     %bench_stop(experiment=Dimension size,candidate=COUNTRY_DIRECT,rep=&rep,measured=%eval(&rep>0))
   %end;
@@ -17,9 +17,9 @@
     %drop_cas(x1_product)
     %bench_start
     proc fedsql sessref=&CAS_SESSION %plan_opts(&rep);
-      create table mycas.x1_product {options replace=true} as
+      create table &caslib..x1_product {options replace=true} as
       select o.OrderID,o.OrderDate,o.CustomerID,o.Country,o.ProductID,o.Quantity,p.Item,p.Manufacturer
-      from mycas.orders_raw o left join mycas.product_thin p on o.ProductID=p.ProductID;
+      from &caslib..orders_raw o left join &caslib..product_thin p on o.ProductID=p.ProductID;
     quit;
     %bench_stop(experiment=Dimension size,candidate=PRODUCT_DIRECT,rep=&rep,measured=%eval(&rep>0))
   %end;
@@ -30,9 +30,9 @@
     %drop_cas(x1_customer)
     %bench_start
     proc fedsql sessref=&CAS_SESSION %plan_opts(&rep);
-      create table mycas.x1_customer {options replace=true} as
+      create table &caslib..x1_customer {options replace=true} as
       select o.OrderID,o.OrderDate,o.CustomerID,o.Country,o.ProductID,o.Quantity,u.CustomerName
-      from mycas.orders_raw o left join mycas.customer_thin u on o.CustomerID=u.CustomerID;
+      from &caslib..orders_raw o left join &caslib..customer_thin u on o.CustomerID=u.CustomerID;
     quit;
     %bench_stop(experiment=Dimension size,candidate=CUSTOMER_DIRECT,rep=&rep,measured=%eval(&rep>0))
   %end;

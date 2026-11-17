@@ -7,7 +7,7 @@ proc sql;
          min(ElapsedSec) as MinElapsedSec format=14.3,
          max(ElapsedSec) as MaxElapsedSec format=14.3
   from work.benchmark_runs
-  where Measured=1
+  /*where Measured=1*/
   group by Experiment,Candidate,Phase
   order by Experiment,Candidate,Phase;
 quit;

@@ -7,29 +7,29 @@ proc cas;
 quit;
 
 proc fedsql sessref=&CAS_SESSION;
-  select 'orders_raw' as TableName, count(*) as Rows from mycas.orders_raw;
-  select 'countrycodes_raw' as TableName, count(*) as Rows from mycas.countrycodes_raw;
-  select 'products_raw' as TableName, count(*) as Rows from mycas.products_raw;
-  select 'customers_raw' as TableName, count(*) as Rows from mycas.customers_raw;
+  select 'orders_raw' as TableName, count(*) as CountRows from &caslib..orders_raw;
+  select 'countrycodes_raw' as TableName, count(*) as CountRows from &caslib..countrycodes_raw;
+  select 'products_raw' as TableName, count(*) as CountRows from &caslib..products_raw;
+  select 'customers_raw' as TableName, count(*) as CountRows from &caslib..customers_raw;
 
-  create table mycas.dup_country {options replace=true} as
-    select Country, count(*) as N from mycas.countrycodes_raw group by Country having count(*)>1;
-  create table mycas.dup_product {options replace=true} as
-    select ProductID, count(*) as N from mycas.products_raw group by ProductID having count(*)>1;
-  create table mycas.dup_customer {options replace=true} as
-    select CustomerID, count(*) as N from mycas.customers_raw group by CustomerID having count(*)>1;
+  create table &caslib..dup_country {options replace=true} as
+    select Country, count(*) as N from &caslib..countrycodes_raw group by Country having count(*)>1;
+  create table &caslib..dup_product {options replace=true} as
+    select ProductID, count(*) as N from &caslib..products_raw group by ProductID having count(*)>1;
+  create table &caslib..dup_customer {options replace=true} as
+    select CustomerID, count(*) as N from &caslib..customers_raw group by CustomerID having count(*)>1;
 quit;
 
 proc fedsql sessref=&CAS_SESSION;
-  select 'dup_country' as CheckName, count(*) as DuplicateKeys from mycas.dup_country;
-  select 'dup_product' as CheckName, count(*) as DuplicateKeys from mycas.dup_product;
-  select 'dup_customer' as CheckName, count(*) as DuplicateKeys from mycas.dup_customer;
+  select 'dup_country' as CheckName, count(*) as DuplicateKeys from &caslib..dup_country;
+  select 'dup_product' as CheckName, count(*) as DuplicateKeys from &caslib..dup_product;
+  select 'dup_customer' as CheckName, count(*) as DuplicateKeys from &caslib..dup_customer;
 quit;
 
 proc sql noprint;
-  select count(*) into :_dup_country trimmed from mycas.dup_country;
-  select count(*) into :_dup_product trimmed from mycas.dup_product;
-  select count(*) into :_dup_customer trimmed from mycas.dup_customer;
+  select count(*) into :_dup_country trimmed from &caslib..dup_country;
+  select count(*) into :_dup_product trimmed from &caslib..dup_product;
+  select count(*) into :_dup_customer trimmed from &caslib..dup_customer;
 quit;
 
 %macro assert_unique_dimensions;

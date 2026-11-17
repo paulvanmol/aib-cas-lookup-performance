@@ -13,9 +13,9 @@ quit;
     %drop_cas(&out)
     %bench_start
     proc fedsql sessref=&CAS_SESSION %plan_opts(&rep);
-      create table mycas.&out {options replace=true} as
+      create table &caslib..&out {options replace=true} as
       select o.OrderID,o.CustomerID,o.Quantity,u.CustomerName
-      from mycas.orders_raw o left join mycas.&dim u on o.CustomerID=u.CustomerID
+      from &caslib..orders_raw o left join &caslib..&dim u on o.CustomerID=u.CustomerID
       %if &selective=1 %then %do;
         where o.CustomerID between 1 and &SELECTIVE_CUSTOMERS
       %end;

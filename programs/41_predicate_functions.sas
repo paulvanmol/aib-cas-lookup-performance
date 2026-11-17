@@ -4,9 +4,9 @@
     %drop_cas(x2_function_join)
     %bench_start
     proc fedsql sessref=&CAS_SESSION %plan_opts(&rep);
-      create table mycas.x2_function_join {options replace=true} as
+      create table &caslib..x2_function_join {options replace=true} as
       select o.OrderID,o.OrderDate,o.CustomerID,o.Country,o.ProductID,o.Quantity,c.Country_Name
-      from mycas.orders_raw o left join mycas.country_thin c
+      from &caslib..orders_raw o left join &caslib..country_thin c
         on upper(trim(o.Country))=upper(trim(c.Country));
     quit;
     %bench_stop(experiment=Predicate functions,candidate=COUNTRY_FUNCTION,rep=&rep,measured=%eval(&rep>0))
@@ -18,9 +18,9 @@
     %drop_cas(x2_direct_join)
     %bench_start
     proc fedsql sessref=&CAS_SESSION %plan_opts(&rep);
-      create table mycas.x2_direct_join {options replace=true} as
+      create table &caslib..x2_direct_join {options replace=true} as
       select o.OrderID,o.OrderDate,o.CustomerID,o.Country,o.ProductID,o.Quantity,c.Country_Name
-      from mycas.orders_raw o left join mycas.country_thin c on o.Country=c.Country;
+      from &caslib..orders_raw o left join &caslib..country_thin c on o.Country=c.Country;
     quit;
     %bench_stop(experiment=Predicate functions,candidate=COUNTRY_DIRECT,rep=&rep,measured=%eval(&rep>0))
   %end;

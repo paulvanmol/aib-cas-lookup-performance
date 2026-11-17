@@ -4,13 +4,13 @@
     %drop_cas(&out)
     %bench_start
     proc fedsql sessref=&CAS_SESSION %plan_opts(&rep);
-      create table mycas.&out {options replace=true} as
+      create table &caslib..&out {options replace=true} as
       select o.OrderID,o.OrderDate,o.CustomerID,o.Country,o.ProductID,o.Quantity,
              c.Country_Name,p.Item,p.Manufacturer,u.CustomerName
-      from mycas.&orders o
-      left join mycas.country_thin c on o.Country=c.Country
-      left join mycas.product_thin p on o.ProductID=p.ProductID
-      left join mycas.&customer u on o.CustomerID=u.CustomerID;
+      from &caslib..&orders o
+      left join &caslib..country_thin c on o.Country=c.Country
+      left join &caslib..product_thin p on o.ProductID=p.ProductID
+      left join &caslib..&customer u on o.CustomerID=u.CustomerID;
     quit;
     %bench_stop(experiment=Finalists,candidate=&candidate,rep=&rep,measured=%eval(&rep>0))
   %end;

@@ -1,20 +1,20 @@
 /* Compute reusable attributes once and prune dimensions before joins. */
-data mycas.customers_prep;
+data &caslib..customers_prep;
   length CustomerName $100;
-  set mycas.customers_raw;
+  set &caslib..customers_raw;
   CustomerName=catx(' ',FirstName,MI,LastName);
 run;
 
-data mycas.country_thin;
-  set mycas.countrycodes_raw(keep=Country Country_Name);
+data &caslib..country_thin;
+  set &caslib..countrycodes_raw(keep=Country Country_Name);
 run;
 
-data mycas.product_thin;
-  set mycas.products_raw(keep=ProductID Item Manufacturer);
+data &caslib..product_thin;
+  set &caslib..products_raw(keep=ProductID Item Manufacturer);
 run;
 
-data mycas.customer_thin;
-  set mycas.customers_prep(keep=CustomerID CustomerName);
+data &caslib..customer_thin;
+  set &caslib..customers_prep(keep=CustomerID CustomerName);
 run;
 
 %table_details(country_thin)

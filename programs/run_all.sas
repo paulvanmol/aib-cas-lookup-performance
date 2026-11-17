@@ -8,7 +8,7 @@
 %mend;
 %maybe_generate
 
-%include "&PROJECT_ROOT/programs/11_load_to_cas.sas";
+%include "&PROJECT_ROOT/programs/12_load_to_cas.sas";
 %include "&PROJECT_ROOT/programs/20_validate_inputs.sas";
 %include "&PROJECT_ROOT/programs/25_prepare_dimensions.sas";
 %include "&PROJECT_ROOT/programs/30_initialize_results.sas";

@@ -54,7 +54,7 @@ options msglevel=i fullstimer source2 mprint;
 libname lookup "&ACTIVE_DATA_DIR";
 
 cas &CAS_SESSION sessopts=(caslib="&CASLIB" metrics=true timeout=&CAS_TIMEOUT);
-libname mycas cas sessref=&CAS_SESSION caslib="&CASLIB";
+libname &caslib cas sessref=&CAS_SESSION caslib="&CASLIB";
 
 %include "&PROJECT_ROOT/programs/macros/benchmark_macros.sas";
 

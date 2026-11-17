@@ -21,9 +21,9 @@
     %drop_cas(&out)
     %bench_start
     proc fedsql sessref=&CAS_SESSION %plan_opts(&rep);
-      create table mycas.&out {options replace=true} as
+      create table &caslib..&out {options replace=true} as
       select Country_Name,Manufacturer,sum(Quantity) as Units
-      from mycas.&source group by Country_Name,Manufacturer;
+      from &caslib..&source group by Country_Name,Manufacturer;
     quit;
     %bench_stop(experiment=Storage formats,candidate=&candidate,rep=&rep,measured=%eval(&rep>0))
   %end;
